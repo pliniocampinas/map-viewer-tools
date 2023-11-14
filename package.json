@@ -1,0 +1,22 @@
+{
+  "name": "map-viewer-tools",
+  "version": "1.0.0",
+  "description": "Tools and samples of maps visualizations",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pliniocampinas/map-viewer-tools.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pliniocampinas/map-viewer-tools/issues"
+  },
+  "homepage": "https://github.com/pliniocampinas/map-viewer-tools#readme",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
