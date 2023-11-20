@@ -39,6 +39,9 @@
   <script>
     const mapBuilder = new MunicipalitiesMapBuilder()
     mapBuilder.renderMap('#municipalities-map')
+    mapBuilder.onPathClick = ({code, description}) => {
+      console.log('custom click code:', code)
+    }
   </script>
 </body>
 </html>
