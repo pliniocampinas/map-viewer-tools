@@ -14,9 +14,9 @@
 
     #municipalities-map {
       max-width: 500px;
-      width: 500px;
+      width: 100%;
       height: 550px;
-      border: 1px solid var(--app-secondary-color);
+      border: 1px solid black;
       padding: 8px;
     }
     
@@ -25,7 +25,6 @@
       height: 100%;
     }
   </style>
-  <link rel="preload" href="./map-tools/assets/municipalities-map.svg" as="image" type="image/svg+xml">
 </head>
 <body>
   <div class="app-root">
@@ -38,7 +37,8 @@
   <script src="./map-tools/brazil-municipalities-tools.js">
   </script>
   <script>
-    renderMap('#municipalities-map')
+    const mapBuilder = new MunicipalitiesMapBuilder()
+    mapBuilder.renderMap('#municipalities-map')
   </script>
 </body>
 </html>
