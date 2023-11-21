@@ -34,6 +34,19 @@
     h1,h2 {
       text-align: center;
     }
+
+    .sample-data {
+      height: 180px;
+      max-height: 180px;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .sample-data td {
+      padding: 4px 8px;
+      font-size: 20px;
+    }
   </style>
 </head>
 <body>
@@ -43,24 +56,57 @@
     <div class="map-container">
       <div id="municipalities-map"></div>
     </div>
+    <div class="sample-data">
+      <table id="sample-table">
+        <thead>
+          <tr>
+            <td><strong>Code</strong></td>
+            <td><strong>Value</strong></td>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <script src="./map-tools/brazil-municipalities-tools.js">
   </script>
   <script>
-    let selectedCode = ''
-    const buildParameters = {
-      containerSelector: '#municipalities-map', 
-      selectedPathClass: 'path--selected',
-      onPathClick: ({code, description}) => {
-        console.log('custom click code:', code)
-        document.querySelector('#city-name').innerHTML = selectedCode == code? 'Select a city': description
-        selectedCode = code
-        mapBuilder.toogleSelectPath(code)
-      }, 
-    }
-    const mapBuilder = new MunicipalitiesMapBuilder(buildParameters)
-    mapBuilder.render()
+    (async () => {
+      let selectedCode = ''
+      const buildParameters = {
+        containerSelector: '#municipalities-map', 
+        selectedPathClass: 'path--selected',
+        onPathClick: ({code, description}) => {
+          console.log('custom click code:', code)
+          document.querySelector('#city-name').innerHTML = selectedCode == code? 'Select a city': description
+          selectedCode = code
+          mapBuilder.toogleSelectPath(code)
+        }, 
+      }
+      const mapBuilder = new MunicipalitiesMapBuilder(buildParameters)
+      await mapBuilder.render()
+
+      const sampleData = await fetch('./gdp-per-capita-2019.json').then(res => res.json())
+      const tableBody = document.querySelector('#sample-table tbody')
+      sampleData.forEach(city => {
+        const row = document.createElement('tr')
+        const codeCell = document.createElement('td')
+        codeCell.innerHTML = city.code
+        const valueCell = document.createElement('td')
+        valueCell.innerHTML = city.gdpPerCapitaBrl2019
+        row.appendChild(codeCell)
+        row.appendChild(valueCell)
+        tableBody.appendChild(row)
+      })
+
+      mapBuilder.colorizeRdYlGn(sampleData.map(d => ({
+        code: d.code,
+        value: d.gdpPerCapitaBrl2019
+      })))
+    })()
   </script>
 </body>
 </html>
