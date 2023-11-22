@@ -1,8 +1,6 @@
 const statesSvgPath = './map-tools/assets/brazil-states.svg'
 const municipalitiesSvgPath = './map-tools/assets/municipalities-map.svg'
 
-const categorical = ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"]
-
 const getDeciles = (values) => {
   const orderedValues = values.slice().sort((a,b) => a - b)
   const deciles = []
@@ -96,6 +94,21 @@ class MunicipalitiesMapBuilder {
     codesAndValues.forEach(element => {
       const decileIndex = getDecileIndex(deciles, element.value)
       this.pathElementsMap[element.code]?.setAttribute("fill", RdYlGn10[decileIndex])
+    })
+  }
+
+  colorizeCategories(codesAndValues) {
+    const categorical10 = ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"]
+    const uniqueValues = [...new Set(codesAndValues.map(d => d.value))]
+    const colorMap = {}
+    uniqueValues.forEach((v, i) => colorMap[v] = categorical10[i%10])
+
+    codesAndValues.forEach((element, index) => {
+      const color = colorMap[element.value]
+      if (!color) {
+        return
+      }
+      this.pathElementsMap[element.code]?.setAttribute("fill", color)
     })
   }
 }

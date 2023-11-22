@@ -47,12 +47,29 @@
       padding: 4px 8px;
       font-size: 20px;
     }
+
+    .switch-view-button-container {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .switch-view-button {
+      padding: 8px;
+      font-size: 16px;
+      border: 2px solid black;
+    }
   </style>
 </head>
 <body>
   <div class="app-root">
     <h1>Map Viewer Tools</h1>
     <h2 id="city-name">Select a city</h2>
+    <div class="switch-view-button-container">
+      <div class="switch-view-button" view-name="gdp-per-capita">GDP per Capita(colorizeRdYlGn)</div>
+      <div class="switch-view-button" view-name="state">States(colorizeCategories)</div>
+    </div>
     <div class="map-container">
       <div id="municipalities-map"></div>
     </div>
@@ -65,7 +82,7 @@
           </tr>
         </thead>
         <tbody>
-
+          <!-- Append here -->
         </tbody>
       </table>
     </div>
@@ -89,24 +106,51 @@
       const mapBuilder = new MunicipalitiesMapBuilder(buildParameters)
       await mapBuilder.render()
 
-      const sampleData = await fetch('./gdp-per-capita-2019.json').then(res => res.json())
+      window.mapBuilder = mapBuilder
+      await colorWithGdp()
+    })()
+
+    const fillTable = (cities) => {
       const tableBody = document.querySelector('#sample-table tbody')
-      sampleData.forEach(city => {
+      tableBody.innerHTML = ''
+      cities.forEach(city => {
         const row = document.createElement('tr')
         const codeCell = document.createElement('td')
         codeCell.innerHTML = city.code
         const valueCell = document.createElement('td')
-        valueCell.innerHTML = city.gdpPerCapitaBrl2019
+        valueCell.innerHTML = city.value
         row.appendChild(codeCell)
         row.appendChild(valueCell)
         tableBody.appendChild(row)
       })
+    }
 
-      mapBuilder.colorizeRdYlGn(sampleData.map(d => ({
-        code: d.code,
-        value: d.gdpPerCapitaBrl2019
-      })))
-    })()
+    const colorWithGdp = async () => {
+      const sampleData = (await fetch('./gdp-per-capita-2019.json')
+        .then(res => res.json()))
+        .map(d => ({
+          code: d.code,
+          value: d.gdpPerCapitaBrl2019
+        }))
+      
+      fillTable(sampleData)
+      window.mapBuilder.colorizeRdYlGn(sampleData)
+    }
+
+    const colorWithStates = async () => {
+      const sampleData = (await fetch('./municipalities-codes.json')
+        .then(res => res.json()))
+        .map(d => ({
+          code: d.code,
+          value: d.stateAcronym
+        }))
+
+      fillTable(sampleData)
+      window.mapBuilder.colorizeCategories(sampleData)
+    }
+
+    document.querySelector('.switch-view-button[view-name="gdp-per-capita"]').addEventListener('click', colorWithGdp)
+    document.querySelector('.switch-view-button[view-name="state"]').addEventListener('click', colorWithStates)
   </script>
 </body>
 </html>
