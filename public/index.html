@@ -4,63 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Map Viewer Tools</title>
-  <style>
-    .map-container {
-      border: 1px solid black;
-      padding: 8px;
-      display: flex;
-      justify-content: center;
-    }
-
-    #municipalities-map {
-      max-width: 500px;
-      width: 100%;
-      height: 550px;
-      border: 1px solid black;
-      padding: 8px;
-    }
-    
-    #municipalities-map svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    #municipalities-map .path--selected {
-      opacity: 0.7;
-      stroke-width: 2;
-      stroke: #cccccc;
-    }
-
-    h1,h2 {
-      text-align: center;
-    }
-
-    .sample-data {
-      height: 180px;
-      max-height: 180px;
-      overflow: auto;
-      display: flex;
-      justify-content: center;
-    }
-
-    .sample-data td {
-      padding: 4px 8px;
-      font-size: 20px;
-    }
-
-    .switch-view-button-container {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .switch-view-button {
-      padding: 8px;
-      font-size: 16px;
-      border: 2px solid black;
-    }
-  </style>
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
   <div class="app-root">
@@ -74,17 +18,19 @@
       <div id="municipalities-map"></div>
     </div>
     <div class="sample-data">
-      <table id="sample-table">
-        <thead>
-          <tr>
-            <td><strong>Code</strong></td>
-            <td><strong>Value</strong></td>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Append here -->
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table id="sample-table">
+          <thead>
+            <tr>
+              <td><strong>Code</strong></td>
+              <td><strong>Value</strong></td>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Append here -->
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
