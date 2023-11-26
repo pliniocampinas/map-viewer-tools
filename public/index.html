@@ -17,6 +17,9 @@
     <div class="map-container">
       <div id="municipalities-map"></div>
     </div>
+    <div id="map-labels">
+      <!-- Append here -->
+    </div>
     <div class="sample-data">
       <div class="table-container">
         <table id="sample-table">
@@ -34,8 +37,8 @@
     </div>
   </div>
 
-  <script src="./map-tools/brazil-municipalities-tools.js">
-  </script>
+  <script src="index.js"></script>
+  <script src="./map-tools/brazil-municipalities-tools.js"></script>
   <script>
     (async () => {
       let selectedCode = ''
@@ -56,21 +59,6 @@
       await colorWithGdp()
     })()
 
-    const fillTable = (cities) => {
-      const tableBody = document.querySelector('#sample-table tbody')
-      tableBody.innerHTML = ''
-      cities.forEach(city => {
-        const row = document.createElement('tr')
-        const codeCell = document.createElement('td')
-        codeCell.innerHTML = city.code
-        const valueCell = document.createElement('td')
-        valueCell.innerHTML = city.value
-        row.appendChild(codeCell)
-        row.appendChild(valueCell)
-        tableBody.appendChild(row)
-      })
-    }
-
     const colorWithGdp = async () => {
       const sampleData = (await fetch('./gdp-per-capita-2019.json')
         .then(res => res.json()))
@@ -81,6 +69,7 @@
       
       fillTable(sampleData)
       window.mapBuilder.colorizeRdYlGn(sampleData)
+      clearColorLabels()
     }
 
     const colorWithStates = async () => {
@@ -94,6 +83,7 @@
       fillTable(sampleData)
       const colorMap = window.mapBuilder.colorizeCategories(sampleData)
       console.log('colorMap', colorMap)
+      fillColorLabels(colorMap)
     }
 
     document.querySelector('.switch-view-button[view-name="gdp-per-capita"]').addEventListener('click', colorWithGdp)

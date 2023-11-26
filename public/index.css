@@ -69,3 +69,27 @@ h1,h2 {
   background-color: whitesmoke;
   color: #212121;
 }
+
+#map-labels {
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid whitesmoke;
+  text-align: center;
+  justify-content: center;
+}
+
+.line-div {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.label-div {
+  padding: 4px;
+}
+
+.color-div {
+  width: 16px;
+  height: 16px;
+}
