@@ -146,7 +146,8 @@
         }))
 
       fillTable(sampleData)
-      window.mapBuilder.colorizeCategories(sampleData)
+      const colorMap = window.mapBuilder.colorizeCategories(sampleData)
+      console.log('colorMap', colorMap)
     }
 
     document.querySelector('.switch-view-button[view-name="gdp-per-capita"]').addEventListener('click', colorWithGdp)
