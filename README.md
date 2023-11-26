@@ -13,5 +13,5 @@ npm run start
 
 ### TODO
 
-- [ ] Add labels examples for categorical data.
+- [x] Add labels examples for categorical data.
 - [ ] Add custom palletes configuration feature.
