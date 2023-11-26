@@ -27,11 +27,12 @@ class MunicipalitiesMapBuilder {
     this.rendered = false
     this.containerSelector = containerSelector
     this.selectedPathClass = selectedPathClass
-    this.onPathClick = onPathClick || (({code, description}) => {
+    this.onPathClick = onPathClick || ((code, {description}) => {
       console.log('click code:', code, 'description', description)
     })
     this.pathElementsMap = {}
     this.selectedCode = ''
+    this.currentData = []
   }
 
   async render() {
@@ -54,9 +55,9 @@ class MunicipalitiesMapBuilder {
       if(!code) {
         continue
       }
-      pathElement.addEventListener('click', () => this.onPathClick({
-        code,
-        description
+      pathElement.addEventListener('click', () => this.onPathClick(code, {
+        description,
+        ...(this.currentData?.find(d => d.code == code)??{})
       }))
       this.pathElementsMap[code] = pathElement
     }
@@ -89,6 +90,7 @@ class MunicipalitiesMapBuilder {
   }
 
   colorizeRdYlGn(codesAndValues) {
+    this.currentData = codesAndValues
     const RdYlGn10 = ["#a50026","#d73027","#f46d43","#fdae61","#fee08b","#d9ef8b","#a6d96a","#66bd63","#1a9850","#006837"]
     const deciles = getDeciles(codesAndValues.map(d => d.value))
     codesAndValues.forEach(element => {
@@ -98,6 +100,7 @@ class MunicipalitiesMapBuilder {
   }
 
   colorizeCategories(codesAndValues, { customPallete } = {}) {
+    this.currentData = codesAndValues
     const categoricalPallete = customPallete?? ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"]
     const uniqueValues = [...new Set(codesAndValues.map(d => d.value))]
     if(uniqueValues.length > categoricalPallete.length) {

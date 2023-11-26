@@ -10,6 +10,7 @@
   <div class="app-root">
     <h1>Map Viewer Tools</h1>
     <h2 id="city-name">Select a city</h2>
+    <h3 id="city-details"></h3>
     <div class="switch-view-button-container">
       <div class="switch-view-button" view-name="gdp-per-capita">GDP per Capita(colorizeRdYlGn)</div>
       <div class="switch-view-button" view-name="state">States(colorizeCategories)</div>
@@ -40,18 +41,28 @@
   <script src="index.js"></script>
   <script src="./map-tools/brazil-municipalities-tools.js"></script>
   <script>
+    let currentData = [];
+    let onFillDetails = (details) => {}
+    let clearDetails = () => document.querySelector('#city-details').innerHTML = '';
     (async () => {
       let selectedCode = ''
       const buildParameters = {
         containerSelector: '#municipalities-map', 
         selectedPathClass: 'path--selected',
-        onPathClick: ({code, description}) => {
-          console.log('custom click code:', code)
-          document.querySelector('#city-name').innerHTML = selectedCode == code? 'Select a city': description
-          selectedCode = code
+        onPathClick: (code, details) => {
+          console.log('custom click code:', code, 'description: ', details.description,'value:', details.value)
+          selectedCode = selectedCode == code? '': code
           mapBuilder.toogleSelectPath(code)
+          if(!selectedCode) {
+            document.querySelector('#city-name').innerHTML = 'Select a city'
+            clearDetails()
+            return
+          }
+          document.querySelector('#city-name').innerHTML = details.description
+          onFillDetails(details)
         }, 
       }
+
       const mapBuilder = new MunicipalitiesMapBuilder(buildParameters)
       await mapBuilder.render()
 
@@ -70,6 +81,11 @@
       fillTable(sampleData)
       window.mapBuilder.colorizeRdYlGn(sampleData)
       clearColorLabels()
+      clearDetails()
+      onFillDetails = ({value}) => document.querySelector('#city-details').innerHTML = `
+        <span>GDP: </span>
+        <span>${value}</span>
+      `
     }
 
     const colorWithStates = async () => {
@@ -85,6 +101,11 @@
       const colorMap = window.mapBuilder.colorizeCategories(sampleData, {customPallete})
       console.log('colorMap', colorMap)
       fillColorLabels(colorMap)
+      clearDetails()
+      onFillDetails = ({value}) => document.querySelector('#city-details').innerHTML = `
+        <span>State: </span>
+        <span>${value}</span>
+      `
     }
 
     document.querySelector('.switch-view-button[view-name="gdp-per-capita"]').addEventListener('click', colorWithGdp)
