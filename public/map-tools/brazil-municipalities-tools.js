@@ -97,15 +97,15 @@ class MunicipalitiesMapBuilder {
     })
   }
 
-  colorizeCategories(codesAndValues) {
-    const categorical10 = ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"]
+  colorizeCategories(codesAndValues, { customPallete } = {}) {
+    const categoricalPallete = customPallete?? ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"]
     const uniqueValues = [...new Set(codesAndValues.map(d => d.value))]
-    if(uniqueValues.length > 10) {
-      console.warn('There are more than 10 unique values, there will be repeated colors')
+    if(uniqueValues.length > categoricalPallete.length) {
+      console.warn('There are more unique values than colors in the pallete, there will be repeated colors')
     }
 
     const colorMap = {}
-    uniqueValues.forEach((v, i) => colorMap[v] = categorical10[i%10])
+    uniqueValues.forEach((v, i) => colorMap[v] = categoricalPallete[i%categoricalPallete.length])
 
     codesAndValues.forEach((element, index) => {
       const color = colorMap[element.value]
