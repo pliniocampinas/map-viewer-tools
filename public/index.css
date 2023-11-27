@@ -31,6 +31,16 @@
   stroke: #cccccc;
 }
 
+#states-map .path--selected {
+  stroke-width: 4;
+  stroke: #876060;
+  fill: #876060;
+}
+
+#state-details {
+  min-height: 22px;
+}
+
 h1,h2,h3 {
   text-align: center;
 }
