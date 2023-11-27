@@ -13,7 +13,8 @@
     <h3 id="city-details"></h3>
     <div class="switch-view-button-container">
       <div class="switch-view-button" view-name="gdp-per-capita">GDP per Capita(colorizeRdYlGn)</div>
-      <div class="switch-view-button" view-name="state">States(colorizeCategories)</div>
+      <div class="switch-view-button" view-name="municipalities-states">Municipalities/States(colorizeCategories)</div>
+      <div class="switch-view-button" view-name="state-gdp">States GDP</div>
     </div>
     <div class="map-container">
       <div id="municipalities-map"></div>
@@ -71,7 +72,7 @@
     })()
 
     const colorWithGdp = async () => {
-      const sampleData = (await fetch('./gdp-per-capita-2019.json')
+      const sampleData = (await fetch('./sample-data/gdp-per-capita-2019.json')
         .then(res => res.json()))
         .map(d => ({
           code: d.code,
@@ -88,8 +89,8 @@
       `
     }
 
-    const colorWithStates = async () => {
-      const sampleData = (await fetch('./municipalities-codes.json')
+    const colorWithMunicipalitiesStates = async () => {
+      const sampleData = (await fetch('./sample-data/municipalities-codes.json')
         .then(res => res.json()))
         .map(d => ({
           code: d.code,
@@ -108,8 +109,13 @@
       `
     }
 
+    const colorWithStatesGdp = () => {
+      console.log('colorWithStatesGdp')
+    }
+
     document.querySelector('.switch-view-button[view-name="gdp-per-capita"]').addEventListener('click', colorWithGdp)
-    document.querySelector('.switch-view-button[view-name="state"]').addEventListener('click', colorWithStates)
+    document.querySelector('.switch-view-button[view-name="municipalities-states"]').addEventListener('click', colorWithMunicipalitiesStates)
+    document.querySelector('.switch-view-button[view-name="state-gdp"]').addEventListener('click', colorWithStatesGdp)
   </script>
 </body>
 </html>

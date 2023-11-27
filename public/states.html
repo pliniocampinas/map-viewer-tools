@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map Viewer Tools</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="app-root">
+    <h1>Map Viewer Tools</h1>
+    <h2 id="state-name">Select a state</h2>
+    <h3 id="state-details"></h3>
+    <div class="switch-view-button-container">
+      <div class="switch-view-button" view-name="state-gdp">States GDP</div>
+    </div>
+    <div class="map-container">
+      <div id="states-map"></div>
+    </div>
+    <div id="map-labels">
+      <!-- Append here -->
+    </div>
+    <div class="sample-data">
+      <div class="table-container">
+        <table id="sample-table">
+          <thead>
+            <tr>
+              <td><strong>Code</strong></td>
+              <td><strong>Value</strong></td>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Append here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+  <script src="./map-tools/brazil-states-tools.js"></script>
+  <script>
+    let currentData = [];
+    let onFillDetails = (details) => {}
+    let clearDetails = () => document.querySelector('#state-details').innerHTML = '';
+    (async () => {
+      let selectedCode = ''
+      const buildParameters = {
+        containerSelector: '#states-map', 
+        selectedPathClass: 'path--selected',
+        onPathClick: (code, details) => {
+          console.log('custom click code:', details)
+          selectedCode = selectedCode == code? '': code
+          mapBuilder.toogleSelectPath(code)
+          if(!selectedCode) {
+            document.querySelector('#state-name').innerHTML = 'Select a state'
+            clearDetails()
+            return
+          }
+          document.querySelector('#state-name').innerHTML = details.description
+          onFillDetails(details)
+        }, 
+      }
+
+      const mapBuilder = new StatesMapBuilder(buildParameters)
+      await mapBuilder.render()
+
+      window.mapBuilder = mapBuilder
+      await colorWithGdp()
+    })()
+
+    const colorWithGdp = async () => {
+      const sampleData = (await fetch('./sample-data/state-gdp-per-capita-2019.json')
+        .then(res => res.json()))
+        .map(d => ({
+          code: d.sigla_uf,
+          value: d.pib_per_capita_brl,
+          description: d.unidade_federativa
+        }))
+      
+      fillTable(sampleData)
+      window.mapBuilder.colorizeRdYlGn(sampleData)
+      clearDetails()
+      onFillDetails = ({value}) => document.querySelector('#state-details').innerHTML = `
+        <span>GDP: </span>
+        <span>${value}</span>
+      `
+    }
+
+    document.querySelector('.switch-view-button[view-name="state-gdp"]').addEventListener('click', colorWithGdp)
+  </script>
+</body>
+</html>

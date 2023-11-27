@@ -1,0 +1,218 @@
+[
+  {
+    "posicao_2019": 1,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Distrito Federal",
+    "sigla_uf": "DF",
+    "pib_per_capita_brl": 90743,
+    "razao_pib_per_capita_brasileiro": "2,6"
+  },
+  {
+    "posicao_2019": 2,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "São Paulo",
+    "sigla_uf": "SP",
+    "pib_per_capita_brl": 51141,
+    "razao_pib_per_capita_brasileiro": "1,5"
+  },
+  {
+    "posicao_2019": 3,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Rio de Janeiro",
+    "sigla_uf": "RJ",
+    "pib_per_capita_brl": 45174,
+    "razao_pib_per_capita_brasileiro": "1,3"
+  },
+  {
+    "posicao_2019": 4,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Santa Catarina",
+    "sigla_uf": "SC",
+    "pib_per_capita_brl": 45118,
+    "razao_pib_per_capita_brasileiro": "1,3"
+  },
+  {
+    "posicao_2019": 5,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Rio Grande do Sul",
+    "sigla_uf": "RS",
+    "pib_per_capita_brl": 42406,
+    "razao_pib_per_capita_brasileiro": "1,2"
+  },
+  {
+    "posicao_2019": 6,
+    "diferenca_posicao_2018": -2,
+    "unidade_federativa": "Paraná",
+    "sigla_uf": "PR",
+    "pib_per_capita_brl": 40789,
+    "razao_pib_per_capita_brasileiro": "1,2"
+  },
+  {
+    "posicao_2019": 7,
+    "diferenca_posicao_2018": -1,
+    "unidade_federativa": "Mato Grosso",
+    "sigla_uf": "MT",
+    "pib_per_capita_brl": 40787,
+    "razao_pib_per_capita_brasileiro": "1,2"
+  },
+  {
+    "posicao_2019": 8,
+    "diferenca_posicao_2018": -1,
+    "unidade_federativa": "Mato Grosso do Sul",
+    "sigla_uf": "MS",
+    "pib_per_capita_brl": 38483,
+    "razao_pib_per_capita_brasileiro": "1,1"
+  },
+  {
+    "posicao_2019": 9,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Espírito Santo",
+    "sigla_uf": "ES",
+    "pib_per_capita_brl": 34177,
+    "razao_pib_per_capita_brasileiro": 1
+  },
+  {
+    "posicao_2019": 10,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Minas Gerais",
+    "sigla_uf": "MG",
+    "pib_per_capita_brl": 30794,
+    "razao_pib_per_capita_brasileiro": "0,9"
+  },
+  {
+    "posicao_2019": 11,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Goiás",
+    "sigla_uf": "GO",
+    "pib_per_capita_brl": 29732,
+    "razao_pib_per_capita_brasileiro": "0,8"
+  },
+  {
+    "posicao_2019": 12,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Rondônia",
+    "sigla_uf": "RO",
+    "pib_per_capita_brl": 26497,
+    "razao_pib_per_capita_brasileiro": "0,8"
+  },
+  {
+    "posicao_2019": 13,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Amazonas",
+    "sigla_uf": "AM",
+    "pib_per_capita_brl": 26102,
+    "razao_pib_per_capita_brasileiro": "0,7"
+  },
+  {
+    "posicao_2019": 14,
+    "diferenca_posicao_2018": -1,
+    "unidade_federativa": "Tocantins",
+    "sigla_uf": "TO",
+    "pib_per_capita_brl": 25022,
+    "razao_pib_per_capita_brasileiro": "0,7"
+  },
+  {
+    "posicao_2019": 15,
+    "diferenca_posicao_2018": -1,
+    "unidade_federativa": "Roraima",
+    "sigla_uf": "RR",
+    "pib_per_capita_brl": 23594,
+    "razao_pib_per_capita_brasileiro": "0,7"
+  },
+  {
+    "posicao_2019": 16,
+    "diferenca_posicao_2018": -4,
+    "unidade_federativa": "Pará",
+    "sigla_uf": "PA",
+    "pib_per_capita_brl": 20735,
+    "razao_pib_per_capita_brasileiro": "0,6"
+  },
+  {
+    "posicao_2019": 17,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Pernambuco",
+    "sigla_uf": "PE",
+    "pib_per_capita_brl": 20702,
+    "razao_pib_per_capita_brasileiro": "0,6"
+  },
+  {
+    "posicao_2019": 18,
+    "diferenca_posicao_2018": -2,
+    "unidade_federativa": "Amapá",
+    "sigla_uf": "AP",
+    "pib_per_capita_brl": 20688,
+    "razao_pib_per_capita_brasileiro": "0,6"
+  },
+  {
+    "posicao_2019": 19,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Rio Grande do Norte",
+    "sigla_uf": "RN",
+    "pib_per_capita_brl": 20342,
+    "razao_pib_per_capita_brasileiro": "0,6"
+  },
+  {
+    "posicao_2019": 20,
+    "diferenca_posicao_2018": -2,
+    "unidade_federativa": "Bahia",
+    "sigla_uf": "BA",
+    "pib_per_capita_brl": 19716,
+    "razao_pib_per_capita_brasileiro": "0,6"
+  },
+  {
+    "posicao_2019": 21,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Sergipe",
+    "sigla_uf": "SE",
+    "pib_per_capita_brl": 19441,
+    "razao_pib_per_capita_brasileiro": "0,6"
+  },
+  {
+    "posicao_2019": 22,
+    "diferenca_posicao_2018": -1,
+    "unidade_federativa": "Ceará",
+    "sigla_uf": "CE",
+    "pib_per_capita_brl": 17912,
+    "razao_pib_per_capita_brasileiro": "0,5"
+  },
+  {
+    "posicao_2019": 23,
+    "diferenca_posicao_2018": -1,
+    "unidade_federativa": "Acre",
+    "sigla_uf": "AC",
+    "pib_per_capita_brl": 17722,
+    "razao_pib_per_capita_brasileiro": "0,5"
+  },
+  {
+    "posicao_2019": 24,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Alagoas",
+    "sigla_uf": "AL",
+    "pib_per_capita_brl": 17668,
+    "razao_pib_per_capita_brasileiro": "0,5"
+  },
+  {
+    "posicao_2019": 25,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Paraíba",
+    "sigla_uf": "PB",
+    "pib_per_capita_brl": 16920,
+    "razao_pib_per_capita_brasileiro": "0,5"
+  },
+  {
+    "posicao_2019": 26,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Piauí",
+    "sigla_uf": "PI",
+    "pib_per_capita_brl": 16125,
+    "razao_pib_per_capita_brasileiro": "0,5"
+  },
+  {
+    "posicao_2019": 27,
+    "diferenca_posicao_2018": 0,
+    "unidade_federativa": "Maranhão",
+    "sigla_uf": "MA",
+    "pib_per_capita_brl": 13758,
+    "razao_pib_per_capita_brasileiro": "0,4"
+  }
+]
