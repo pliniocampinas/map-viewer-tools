@@ -65,7 +65,7 @@ export default {
     const colorMap = {}
     uniqueValues.forEach((v, i) => colorMap[v] = categoricalPallete[i%categoricalPallete.length])
 
-    codesAndValues.forEach((element, index) => {
+    codesAndValues.forEach(element => {
       const color = colorMap[element.value]
       if (!color) {
         return

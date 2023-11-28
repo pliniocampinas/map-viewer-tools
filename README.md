@@ -17,4 +17,4 @@ npm run start
 - [x] Add custom palletes configuration feature.
 - [x] Implement states map visualization.
 - [x] Generic implementation for future maps.
-- [ ] Reimplement municipalities map with generic solution.
+- [x] Reimplement municipalities map with generic solution.
