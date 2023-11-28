@@ -20,30 +20,54 @@ const getDecileIndex = (decils, value) => {
 }
 
 export default {
-  async render({
-    containerElement,
-    onPathClick,
+  construct(builderInstance, {
+    containerSelector,
+    selectedPathClass,
+    onPathClick
+  }) {
+    builderInstance.rendered = false
+    builderInstance.containerSelector = containerSelector
+    builderInstance.selectedPathClass = selectedPathClass
+    builderInstance.onPathClick = onPathClick || ((details) => {
+      console.log('click details:', details)
+    })
+    builderInstance.pathElementsMap = {}
+    builderInstance.currentData = []
+    builderInstance.selectedCodes = []
+  },
+
+  async render(builderInstance, {
     codeAttribute,
     svgPath,
   }) {
+    if(builderInstance.rendered) {
+      console.error('Render map error: maps can only be rendered once')
+      return
+    }
+
+    const containerElement = document.querySelector(builderInstance.containerSelector)
+    if(!containerElement) {
+      console.error('Render map error: container element not found')
+      return
+    }
+
     const svgText = await fetch(svgPath).then(res => res.text())
     containerElement.innerHTML = svgText
-
-    const pathElementsMap = {}
 
     for (const pathElement of containerElement.querySelectorAll('path')) {
       const code = pathElement.getAttribute(codeAttribute)
       if(!code) {
         continue
       }
-      pathElement.addEventListener('click', () => onPathClick({
+      pathElement.addEventListener('click', () => builderInstance.onPathClick({
         code,
         pathElement,
       }))
-      pathElementsMap[code] = pathElement
+      builderInstance.pathElementsMap[code] = pathElement
     }
 
-    return pathElementsMap
+    builderInstance.rendered = true
+    return builderInstance.pathElementsMap
   },
 
   colorizeRdYlGn(pathElementsMap, codesAndValues) {
