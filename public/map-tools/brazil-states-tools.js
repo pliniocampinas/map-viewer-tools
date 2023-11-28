@@ -1,33 +1,14 @@
+import mapBuildingTools from './map-building-tools.js'
+
 const statesSvgPath = './map-tools/assets/brazil-states.svg'
-
-const getDeciles = (values) => {
-  const orderedValues = values.slice().sort((a,b) => a - b)
-  const deciles = []
-  for (let nthDecile = 1; nthDecile <= 10; nthDecile++) {
-    const decileIndex = Math.ceil(orderedValues.length * (nthDecile / 10)) - 1
-    deciles.push(orderedValues[decileIndex])
-  }
-
-  return deciles
-}
-
-const getDecileIndex = (decils, value) => {
-  for (let index = 0; index < decils.length; index++) {
-    const decilUpperValue = decils[index];
-    if(value <= decilUpperValue) {
-      return index
-    }
-  }
-  return 0
-}
 
 class StatesMapBuilder {
   constructor({containerSelector, onPathClick, selectedPathClass}) {
     this.rendered = false
     this.containerSelector = containerSelector
     this.selectedPathClass = selectedPathClass
-    this.onPathClick = onPathClick || ((code, {description}) => {
-      console.log('click code:', code, 'description', description)
+    this.onPathClick = onPathClick || (details => {
+      console.log('click details:', details)
     })
     this.pathElementsMap = {}
     this.selectedCode = ''
@@ -40,24 +21,18 @@ class StatesMapBuilder {
       return
     }
 
-    const path = await fetch(statesSvgPath).then(res => res.text())
     const containerElement = document.querySelector(this.containerSelector)
     if(!containerElement) {
       console.error('Render map error: container element not found')
       return
     }
-    containerElement.innerHTML = path
 
-    for (const pathElement of containerElement.querySelectorAll('path')) {
-      const code = pathElement.getAttribute('statecode')
-      if(!code) {
-        continue
-      }
-      pathElement.addEventListener('click', () => this.onPathClick(code, {
-        ...(this.currentData?.find(d => d.code == code)??{})
-      }))
-      this.pathElementsMap[code] = pathElement
-    }
+    this.pathElementsMap = await mapBuildingTools.render({
+      containerElement,
+      codeAttribute: 'statecode',
+      onPathClick: this.onPathClick,
+      svgPath: statesSvgPath,
+    })
 
     // Finally
     this.rendered = true
@@ -88,33 +63,14 @@ class StatesMapBuilder {
 
   colorizeRdYlGn(codesAndValues) {
     this.currentData = codesAndValues
-    const RdYlGn10 = ["#a50026","#d73027","#f46d43","#fdae61","#fee08b","#d9ef8b","#a6d96a","#66bd63","#1a9850","#006837"]
-    const deciles = getDeciles(codesAndValues.map(d => d.value))
-    codesAndValues.forEach(element => {
-      const decileIndex = getDecileIndex(deciles, element.value)
-      this.pathElementsMap[element.code]?.setAttribute("fill", RdYlGn10[decileIndex])
-    })
+    mapBuildingTools.colorizeRdYlGn(this.pathElementsMap, codesAndValues)
   }
 
   colorizeCategories(codesAndValues, { customPallete } = {}) {
     this.currentData = codesAndValues
-    const categoricalPallete = customPallete?? ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"]
-    const uniqueValues = [...new Set(codesAndValues.map(d => d.value))]
-    if(uniqueValues.length > categoricalPallete.length) {
-      console.warn('There are more unique values than colors in the pallete, there will be repeated colors')
-    }
-
-    const colorMap = {}
-    uniqueValues.forEach((v, i) => colorMap[v] = categoricalPallete[i%categoricalPallete.length])
-
-    codesAndValues.forEach((element, index) => {
-      const color = colorMap[element.value]
-      if (!color) {
-        return
-      }
-      this.pathElementsMap[element.code]?.setAttribute("fill", color)
-    })
-
+    const colorMap = mapBuildingTools.colorizeCategories(this.pathElementsMap, codesAndValues, {customPallete})
     return colorMap
   }
 }
+
+export { StatesMapBuilder }

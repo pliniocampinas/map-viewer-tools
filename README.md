@@ -16,3 +16,5 @@ npm run start
 - [x] Add labels examples for categorical data.
 - [x] Add custom palletes configuration feature.
 - [x] Implement states map visualization.
+- [x] Generic implementation for future maps.
+- [ ] Reimplement municipalities map with generic solution.
