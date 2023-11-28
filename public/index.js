@@ -4,15 +4,12 @@ import { fillTable, clearColorLabels, fillColorLabels } from './commons.js'
 let onFillDetails = (details) => {}
 let clearDetails = () => document.querySelector('#city-details').innerHTML = '';
 (async () => {
-  let selectedCode = ''
   const buildParameters = {
     containerSelector: '#municipalities-map', 
     selectedPathClass: 'path--selected',
     onPathClick: (details) => {
       console.log('custom click details:', details)
-      selectedCode = selectedCode == details.code? '': details.code
-      mapBuilder.toogleSelectPath(details.code)
-      if(!selectedCode) {
+      if(!mapBuilder.togglePath(details.code)) {
         document.querySelector('#city-name').innerHTML = 'Select a city'
         clearDetails()
         return

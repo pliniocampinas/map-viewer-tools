@@ -76,25 +76,64 @@ export default {
     return colorMap
   },
 
-  toogleSelectPath(builderInstance, code) {
-    if(builderInstance.selectedCode) {
-      const prevElement = builderInstance.pathElementsMap[builderInstance.selectedCode]
-      prevElement.classList.remove(builderInstance.selectedPathClass)
-    }
-
-    if(builderInstance.selectedCode == code) {
-      builderInstance.selectedCode = ''
-      return
-    }
-
-    const element = builderInstance.pathElementsMap[code]
-    if(!element) {
+  togglePath(builderInstance, code) {
+    const pathElement = builderInstance.pathElementsMap[code]
+    if(!pathElement) {
       console.warn('Path not found for code', code)
+      return ''
     }
     if(!builderInstance.selectedPathClass) {
       console.warn('There is no selectedPathClass configured')
+      return ''
     }
-    element.classList.add(builderInstance.selectedPathClass)
-    builderInstance.selectedCode = code
+
+    let deselected = false
+    for (let index = 0; index < builderInstance.selectedCodes.length; index++) {
+      const prevCode = builderInstance.selectedCodes[index];
+      const prevPathElement = builderInstance.pathElementsMap[prevCode]
+      prevPathElement.classList.remove(builderInstance.selectedPathClass)
+
+      if(prevCode == code) {
+        deselected = true
+      }
+    }
+
+    builderInstance.selectedCodes = []
+
+    if(deselected) {
+      return ''
+    }
+
+    if(pathElement.classList.contains(builderInstance.selectedPathClass)) {
+      pathElement.classList.remove(builderInstance.selectedPathClass)
+      return ''
+    }
+
+    pathElement.classList.add(builderInstance.selectedPathClass)
+    builderInstance.selectedCodes.push(code)
+    return code
+  },
+
+  clearSelectedPaths(builderInstance) {
+    for (let index = 0; index < builderInstance.selectedCodes.length; index++) {
+      const prevCode = builderInstance.selectedCodes[index];
+      const prevPathElement = builderInstance.pathElementsMap[prevCode]
+      prevPathElement.classList.remove(builderInstance.selectedPathClass)
+    }
+
+    builderInstance.selectedCodes = []
+  },
+
+  selectPaths(builderInstance, codes) {
+    if(!builderInstance.selectedPathClass) {
+      console.warn('There is no selectedPathClass configured')
+      return
+    }
+
+    for (let index = 0; index < codes?.length; index++) {
+      const code = codes[index];
+      const pathElement = builderInstance.pathElementsMap[code]
+      pathElement.classList.add(builderInstance.selectedPathClass)
+    }
   },
 }

@@ -11,8 +11,8 @@ class StatesMapBuilder {
       console.log('click details:', details)
     })
     this.pathElementsMap = {}
-    this.selectedCode = ''
     this.currentData = []
+    this.selectedCodes = []
   }
 
   async render() {
@@ -39,8 +39,8 @@ class StatesMapBuilder {
     return this
   }
 
-  toogleSelectPath(code) {
-    mapBuildingTools.toogleSelectPath(this, code)
+  togglePath(code) {
+    return mapBuildingTools.togglePath(this, code)
   }
 
   colorizeRdYlGn(codesAndValues) {

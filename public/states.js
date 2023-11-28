@@ -4,15 +4,12 @@ import { fillTable } from './commons.js'
 let onFillDetails = (details) => {}
 let clearDetails = () => document.querySelector('#state-details').innerHTML = '';
 (async () => {
-  let selectedCode = ''
   const buildParameters = {
     containerSelector: '#states-map', 
     selectedPathClass: 'path--selected',
     onPathClick: (details) => {
       console.log('custom click code:', details)
-      selectedCode = selectedCode == details.code? '': details.code
-      mapBuilder.toogleSelectPath(details.code)
-      if(!selectedCode) {
+      if(!mapBuilder.togglePath(details.code)) {
         document.querySelector('#state-name').innerHTML = 'Select a state'
         clearDetails()
         return
