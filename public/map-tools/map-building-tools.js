@@ -134,6 +134,7 @@ export default {
       const code = codes[index];
       const pathElement = builderInstance.pathElementsMap[code]
       pathElement.classList.add(builderInstance.selectedPathClass)
+      builderInstance.selectedCodes.push(code)
     }
   },
 }

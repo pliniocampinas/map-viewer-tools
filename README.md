@@ -18,7 +18,8 @@ npm run start
 - [x] Implement states map visualization.
 - [x] Generic implementation for future maps.
 - [x] Reimplement municipalities map with generic solution.
-- [ ] Allow selection of multiple paths.
-- [ ] Selection of all municipalities paths on clicking each labels.
+- [x] Allow selection of multiple paths.
+- [x] Selection of all municipalities paths on clicking each labels.
+- [ ] Deselect paths on repeating label click.
 - [ ] Implement and sample a view for the state of São Paulo.
 - [ ] Create package configuration and ready to build and integrate outside of the project.

@@ -56,7 +56,14 @@ const colorWithMunicipalitiesStates = async () => {
   const customPallete = ["#b30000", "#7c1158", "#4421af", "#1a53ff", "#0d88e6", "#00b7c7", "#5ad45a", "#8be04e", "#ebdc78"]
   const colorMap = window.mapBuilder.colorizeCategories(sampleData, {customPallete})
   console.log('colorMap', colorMap)
-  fillColorLabels(colorMap)
+  fillColorLabels(colorMap, (code) => {
+    console.log('code', code)
+    const codes = sampleData
+      .filter(d => d.value == code)
+      .map(d => d.code)
+    window.mapBuilder.selectPaths(codes)
+    console.log('codes', codes)
+  })
   clearDetails()
   onFillDetails = ({code}) => document.querySelector('#city-details').innerHTML = `
     <span>State: </span>

@@ -18,7 +18,7 @@ export const clearColorLabels = () => {
   labelsContainer.innerHTML = '-- No Labels --'
 }
 
-export const fillColorLabels = (colorMap) => {
+export const fillColorLabels = (colorMap, onClick) => {
   const labelsContainer = document.querySelector('#map-labels')
   labelsContainer.innerHTML = ''
 
@@ -35,6 +35,8 @@ export const fillColorLabels = (colorMap) => {
     colorDiv.classList.add('color-div')
     colorDiv.style.backgroundColor = colorMap[key]
     lineDiv.appendChild(colorDiv)
+    lineDiv.addEventListener('click', () => onClick(key))
+    lineDiv.setAttribute('code', key)
     labelsContainer.appendChild(lineDiv)
   })
 }
