@@ -1,4 +1,5 @@
 import { StatesMapBuilder } from './map-tools/brazil-states-tools.js'
+import { fillTable } from './commons.js'
 
 let onFillDetails = (details) => {}
 let clearDetails = () => document.querySelector('#state-details').innerHTML = '';
@@ -44,21 +45,6 @@ const colorWithGdp = async () => {
     <span>GDP: </span>
     <span>${sampleData.find(d => d.code == code)?.value}</span>
   `
-}
-
-const fillTable = (cities) => {
-  const tableBody = document.querySelector('#sample-table tbody')
-  tableBody.innerHTML = ''
-  cities.forEach(city => {
-    const row = document.createElement('tr')
-    const codeCell = document.createElement('td')
-    codeCell.innerHTML = city.code
-    const valueCell = document.createElement('td')
-    valueCell.innerHTML = city.value
-    row.appendChild(codeCell)
-    row.appendChild(valueCell)
-    tableBody.appendChild(row)
-  })
 }
 
 document.querySelector('.switch-view-button[view-name="state-gdp"]').addEventListener('click', colorWithGdp)

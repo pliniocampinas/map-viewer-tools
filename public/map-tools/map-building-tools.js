@@ -74,5 +74,27 @@ export default {
     })
 
     return colorMap
-  }
+  },
+
+  toogleSelectPath(builderInstance, code) {
+    if(builderInstance.selectedCode) {
+      const prevElement = builderInstance.pathElementsMap[builderInstance.selectedCode]
+      prevElement.classList.remove(builderInstance.selectedPathClass)
+    }
+
+    if(builderInstance.selectedCode == code) {
+      builderInstance.selectedCode = ''
+      return
+    }
+
+    const element = builderInstance.pathElementsMap[code]
+    if(!element) {
+      console.warn('Path not found for code', code)
+    }
+    if(!builderInstance.selectedPathClass) {
+      console.warn('There is no selectedPathClass configured')
+    }
+    element.classList.add(builderInstance.selectedPathClass)
+    builderInstance.selectedCode = code
+  },
 }

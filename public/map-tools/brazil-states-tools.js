@@ -40,25 +40,7 @@ class StatesMapBuilder {
   }
 
   toogleSelectPath(code) {
-    if(this.selectedCode) {
-      const prevElement = this.pathElementsMap[this.selectedCode]
-      prevElement.classList.remove(this.selectedPathClass)
-    }
-
-    if(this.selectedCode == code) {
-      this.selectedCode = ''
-      return
-    }
-
-    const element = this.pathElementsMap[code]
-    if(!element) {
-      console.warn('Path not found for code', code)
-    }
-    if(!this.selectedPathClass) {
-      console.warn('There is no selectedPathClass configured')
-    }
-    element.classList.add(this.selectedPathClass)
-    this.selectedCode = code
+    mapBuildingTools.toogleSelectPath(this, code)
   }
 
   colorizeRdYlGn(codesAndValues) {
