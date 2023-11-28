@@ -2,29 +2,27 @@ import { MunicipalitiesMapBuilder } from './map-tools/brazil-municipalities-tool
 import { fillTable, clearColorLabels, fillColorLabels } from './commons.js'
 
 let onFillDetails = (details) => {}
-let clearDetails = () => document.querySelector('#city-details').innerHTML = '';
-(async () => {
-  const buildParameters = {
-    containerSelector: '#municipalities-map', 
-    selectedPathClass: 'path--selected',
-    onPathClick: (details) => {
-      console.log('custom click details:', details)
-      if(!mapBuilder.togglePath(details.code)) {
-        document.querySelector('#city-name').innerHTML = 'Select a city'
-        clearDetails()
-        return
-      }
-      document.querySelector('#city-name').innerHTML = details.pathElement.getAttribute('description')
-      onFillDetails(details)
-    }, 
-  }
+let clearDetails = () => document.querySelector('#city-details').innerHTML = ''
 
-  const mapBuilder = new MunicipalitiesMapBuilder(buildParameters)
-  await mapBuilder.render()
+const buildParameters = {
+  containerSelector: '#municipalities-map', 
+  selectedPathClass: 'path--selected',
+  onPathClick: (details) => {
+    console.log('custom click details:', details)
+    if(!mapBuilder.togglePath(details.code)) {
+      document.querySelector('#city-name').innerHTML = 'Select a city'
+      clearDetails()
+      return
+    }
+    document.querySelector('#city-name').innerHTML = details.pathElement.getAttribute('description')
+    onFillDetails(details)
+  }, 
+}
 
-  window.mapBuilder = mapBuilder
-  await colorWithGdp()
-})()
+const mapBuilder = new MunicipalitiesMapBuilder(buildParameters);
+mapBuilder
+  .render()
+  .then(() => colorWithGdp())
 
 const colorWithGdp = async () => {
   const sampleData = (await fetch('./sample-data/gdp-per-capita-2019.json')
@@ -35,7 +33,7 @@ const colorWithGdp = async () => {
     }))
   
   fillTable(sampleData)
-  window.mapBuilder.colorizeRdYlGn(sampleData)
+  mapBuilder.colorizeRdYlGn(sampleData)
   clearColorLabels()
   clearDetails()
   onFillDetails = ({code}) => document.querySelector('#city-details').innerHTML = `
@@ -54,15 +52,12 @@ const colorWithMunicipalitiesStates = async () => {
 
   fillTable(sampleData)
   const customPallete = ["#b30000", "#7c1158", "#4421af", "#1a53ff", "#0d88e6", "#00b7c7", "#5ad45a", "#8be04e", "#ebdc78"]
-  const colorMap = window.mapBuilder.colorizeCategories(sampleData, {customPallete})
-  console.log('colorMap', colorMap)
+  const colorMap = mapBuilder.colorizeCategories(sampleData, {customPallete})
   fillColorLabels(colorMap, (code) => {
-    console.log('code', code)
     const codes = sampleData
       .filter(d => d.value == code)
       .map(d => d.code)
-    window.mapBuilder.selectPaths(codes)
-    console.log('codes', codes)
+    mapBuilder.selectPaths(codes)
   })
   clearDetails()
   onFillDetails = ({code}) => document.querySelector('#city-details').innerHTML = `

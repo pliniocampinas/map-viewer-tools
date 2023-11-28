@@ -2,29 +2,27 @@ import { StatesMapBuilder } from './map-tools/brazil-states-tools.js'
 import { fillTable } from './commons.js'
 
 let onFillDetails = (details) => {}
-let clearDetails = () => document.querySelector('#state-details').innerHTML = '';
-(async () => {
-  const buildParameters = {
-    containerSelector: '#states-map', 
-    selectedPathClass: 'path--selected',
-    onPathClick: (details) => {
-      console.log('custom click code:', details)
-      if(!mapBuilder.togglePath(details.code)) {
-        document.querySelector('#state-name').innerHTML = 'Select a state'
-        clearDetails()
-        return
-      }
-      document.querySelector('#state-name').innerHTML = details.code
-      onFillDetails(details)
-    }, 
-  }
+let clearDetails = () => document.querySelector('#state-details').innerHTML = ''
 
-  const mapBuilder = new StatesMapBuilder(buildParameters)
-  await mapBuilder.render()
+const buildParameters = {
+  containerSelector: '#states-map', 
+  selectedPathClass: 'path--selected',
+  onPathClick: (details) => {
+    console.log('custom click code:', details)
+    if(!mapBuilder.togglePath(details.code)) {
+      document.querySelector('#state-name').innerHTML = 'Select a state'
+      clearDetails()
+      return
+    }
+    document.querySelector('#state-name').innerHTML = details.code
+    onFillDetails(details)
+  }, 
+}
 
-  window.mapBuilder = mapBuilder
-  await colorWithGdp()
-})()
+const mapBuilder = new StatesMapBuilder(buildParameters)
+mapBuilder
+  .render()
+  .then(() => colorWithGdp())
 
 const colorWithGdp = async () => {
   const sampleData = (await fetch('./sample-data/state-gdp-per-capita-2019.json')
@@ -36,7 +34,7 @@ const colorWithGdp = async () => {
     }))
   
   fillTable(sampleData)
-  window.mapBuilder.colorizeRdYlGn(sampleData)
+  mapBuilder.colorizeRdYlGn(sampleData)
   clearDetails()
   onFillDetails = ({code}) => document.querySelector('#state-details').innerHTML = `
     <span>GDP: </span>
