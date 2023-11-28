@@ -26,9 +26,9 @@
 }
 
 #municipalities-map .path--selected {
-  opacity: 0.7;
-  stroke-width: 2;
+  stroke-width: 0.2;
   stroke: #cccccc;
+  fill: #876060;
 }
 
 #states-map .path--selected {
