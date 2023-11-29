@@ -86,15 +86,21 @@ h1,h2,h3 {
   padding: 8px;
   display: flex;
   flex-wrap: wrap;
+  gap: 4px;
   border: 1px solid whitesmoke;
   text-align: center;
   justify-content: center;
 }
 
-.line-div {
-  padding: 4px;
+.block-div {
+  padding: 2px 4px;
   display: flex;
   align-items: center;
+}
+
+.block-div[label-selected="true"] {
+  background-color: whitesmoke;
+  color: #101010;
 }
 
 .label-div {
@@ -104,6 +110,7 @@ h1,h2,h3 {
 .color-div {
   width: 16px;
   height: 16px;
+  border: 1px solid #101010;
 }
 
 .my-1 {

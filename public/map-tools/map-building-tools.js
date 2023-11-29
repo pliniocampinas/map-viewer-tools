@@ -138,7 +138,7 @@ export default {
     return code
   },
 
-  clearSelectedPaths(builderInstance) {
+  clearAllSelectedPaths(builderInstance) {
     for (let index = 0; index < builderInstance.selectedCodes.length; index++) {
       const prevCode = builderInstance.selectedCodes[index];
       const prevPathElement = builderInstance.pathElementsMap[prevCode]
@@ -146,6 +146,15 @@ export default {
     }
 
     builderInstance.selectedCodes = []
+  },
+
+  clearSelectedPaths(builderInstance, codes) {
+    for (let index = 0; index < codes.length; index++) {
+      const prevPathElement = builderInstance.pathElementsMap[codes[index]]
+      prevPathElement.classList.remove(builderInstance.selectedPathClass)
+    }
+
+    builderInstance.selectedCodes = builderInstance.selectedCodes.filter(c => !codes.includes(c))
   },
 
   selectPaths(builderInstance, codes) {

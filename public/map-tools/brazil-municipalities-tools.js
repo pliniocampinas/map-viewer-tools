@@ -21,6 +21,10 @@ class MunicipalitiesMapBuilder {
     return mapBuildingTools.selectPaths(this, codes)
   }
 
+  clearSelectedPaths(codes) {
+    mapBuildingTools.clearSelectedPaths(this, codes)
+  }
+
   colorizeRdYlGn(codesAndValues) {
     this.currentData = codesAndValues
     mapBuildingTools.colorizeRdYlGn(this.pathElementsMap, codesAndValues)

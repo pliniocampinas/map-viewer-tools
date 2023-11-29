@@ -53,10 +53,17 @@ const colorWithMunicipalitiesStates = async () => {
   fillTable(sampleData)
   const customPallete = ["#b30000", "#7c1158", "#4421af", "#1a53ff", "#0d88e6", "#00b7c7", "#5ad45a", "#8be04e", "#ebdc78"]
   const colorMap = mapBuilder.colorizeCategories(sampleData, {customPallete})
-  fillColorLabels(colorMap, (code) => {
+  fillColorLabels(colorMap, (stateAcronym, toggleLabel) => {
     const codes = sampleData
-      .filter(d => d.value == code)
+      .filter(d => d.value == stateAcronym)
       .map(d => d.code)
+
+    toggleLabel()
+    const isCategorySelected = codes.every(v => mapBuilder.selectedCodes.includes(v))
+    if(isCategorySelected) {
+      mapBuilder.clearSelectedPaths(codes)
+      return
+    }
     mapBuilder.selectPaths(codes)
   })
   clearDetails()
