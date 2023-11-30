@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map Viewer Tools</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="app-root">
+    <h1 class="my-1 bb-1 py-1">Map Viewer Tools</h1>
+    <h2 class="my-1" id="city-name">Select a city</h2>
+    <h3 class="my-1 details-header" id="city-details"></h3>
+    <div class="switch-view-button-container">
+      <div class="switch-view-button" view-name="gdp-per-capita">GDP per Capita(colorizeRdYlGn)</div>
+    </div>
+    <div class="map-container">
+      <div id="municipalities-map"></div>
+    </div>
+    <div id="map-labels">
+      <!-- Append here -->
+    </div>
+    <div class="sample-data">
+      <div class="table-container">
+        <table id="sample-table">
+          <thead>
+            <tr>
+              <td><strong>Code</strong></td>
+              <td><strong>Value</strong></td>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Append here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="sp-municipalities.js"></script>
+</body>
+</html>
