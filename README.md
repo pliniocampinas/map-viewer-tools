@@ -21,5 +21,5 @@ npm run start
 - [x] Allow selection of multiple paths.
 - [x] Selection of all municipalities paths on clicking each labels.
 - [x] Deselect paths on repeating label click.
-- [ ] Implement and sample a view for the state of São Paulo.
+- [x] Implement and sample a view for the state of São Paulo.
 - [ ] Create package configuration and ready to build and integrate outside of the project.

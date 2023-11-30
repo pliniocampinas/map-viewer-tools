@@ -14,7 +14,6 @@ const buildParameters = {
       clearDetails()
       return
     }
-    document.querySelector('#city-name').innerHTML = details.pathElement.getAttribute('description')
     onFillDetails(details)
   }, 
 }
@@ -25,14 +24,14 @@ mapBuilder
   .then(() => colorWithGdp())
 
 const colorWithGdp = async () => {
-  const codesAndStates = (await fetch('./sample-data/municipalities-codes.json')
+  const codesWithStates = (await fetch('./sample-data/municipalities-codes.json')
     .then(res => res.json()))
     .filter(d => d.stateAcronym === 'SP')
-    .map(d => d.code)
-    
+
+  const codes = codesWithStates.map(d => d.code)
   const sampleData = (await fetch('./sample-data/gdp-per-capita-2019.json')
     .then(res => res.json()))
-    .filter(d => codesAndStates.includes(d.code))
+    .filter(d => codes.includes(d.code))
     .map(d => ({
       code: d.code,
       value: d.gdpPerCapitaBrl2019
@@ -42,10 +41,13 @@ const colorWithGdp = async () => {
   mapBuilder.colorizeRdYlGn(sampleData)
   clearColorLabels()
   clearDetails()
-  onFillDetails = ({code}) => document.querySelector('#city-details').innerHTML = `
-    <span>GDP: </span>
-    <span>${sampleData.find(d => d.code == code)?.value}</span>
-  `
+  onFillDetails = ({code}) => {
+    document.querySelector('#city-name').innerHTML = codesWithStates.find(d => d.code == code).name
+    document.querySelector('#city-details').innerHTML = `
+      <span>GDP: </span>
+      <span>${sampleData.find(d => d.code == code)?.value}</span>
+    `
+  }
 }
 
 document.querySelector('.switch-view-button[view-name="gdp-per-capita"]').addEventListener('click', colorWithGdp)
